@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -10,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { DashboardService } from './dashboard.service';
 import { CreateDashboardDto, GetByIdParams, UpdateDashboardDto } from './dto';
+import { Types } from 'mongoose';
 
 @Controller('dashboard')
 export class DashboardController {
@@ -17,6 +19,9 @@ export class DashboardController {
 
   @Get('/:id')
   async getById(@Param() { id }: GetByIdParams) {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('error.id.not-valid');
+    }
     return this.dashboardService.getById(id);
   }
 

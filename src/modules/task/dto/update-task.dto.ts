@@ -13,4 +13,8 @@ export class UpdateTaskDto {
   @IsOptional()
   @IsString()
   description: string;
+
+  @IsOptional()
+  @IsString()
+  index: number;
 }

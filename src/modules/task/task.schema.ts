@@ -27,11 +27,14 @@ export class Task {
   })
   column: Column;
 
-  @Prop({ required: true, type: MongooseSchema.Types.String, unique: true })
+  @Prop({ required: true, type: MongooseSchema.Types.String, unique: false })
   name: string;
 
   @Prop({ required: false, type: MongooseSchema.Types.String })
   description: string;
+
+  @Prop({ required: true, type: MongooseSchema.Types.Number })
+  index: number;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);

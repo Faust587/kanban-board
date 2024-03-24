@@ -8,8 +8,13 @@ import {
   Put,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { CreateTaskDto, UpdateTaskDto } from './dto/index';
-import { GetByIdParams } from '../dashboard/dto/index';
+import {
+  ChangeColumnDto,
+  ChangeOrderDto,
+  CreateTaskDto,
+  UpdateTaskDto,
+} from './dto';
+import { GetByIdParams } from '../dashboard/dto';
 
 @Controller('task')
 export class TaskController {
@@ -27,6 +32,22 @@ export class TaskController {
     @Body() updateTaskDto: UpdateTaskDto,
   ) {
     return this.taskService.updateById(id, updateTaskDto);
+  }
+
+  @Put('change-order/:id')
+  async changeOrder(
+    @Param() { id }: GetByIdParams,
+    @Body() changeOrderDto: ChangeOrderDto,
+  ) {
+    return this.taskService.changeTaskOrder(id, changeOrderDto);
+  }
+
+  @Put('change-column/:id')
+  async changeColumn(
+    @Param() { id }: GetByIdParams,
+    @Body() changeColumnDto: ChangeColumnDto,
+  ) {
+    return this.taskService.changeTaskColumn(id, changeColumnDto);
   }
 
   @Delete('/:id')
